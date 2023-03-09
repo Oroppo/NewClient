@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,15 +16,20 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
     }
-    // Use this for initialization
-    void Start()
-    {
 
+    internal float WrapEulerAngles(float rotation)
+    {
+        rotation %= 360;
+        if (rotation >= 180)
+            return -360;
+        return rotation;
     }
-
-    // Update is called once per frame
-    void Update()
+    public float UnwrapEulerAngles(float rotation)
     {
+        if (rotation >= 0)
+            return rotation;
 
+        rotation = -rotation % 360;
+        return 360 - rotation;
     }
 }

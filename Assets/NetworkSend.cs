@@ -5,7 +5,7 @@ enum ClientPackets
 {
     CPing = 1,
     CKeyInput,
-
+    CPlayerRotation,
 }
 internal static class NetworkSend
 {
@@ -23,6 +23,16 @@ internal static class NetworkSend
         ByteBuffer buffer = new ByteBuffer(4);
         buffer.WriteInt32((int)ClientPackets.CKeyInput);
         buffer.WriteByte((byte)pressedKey);
+        NetworkConfig.socket.SendData(buffer.Data, buffer.Head);
+
+        buffer.Dispose();
+    }
+
+    internal static void SendPlayerRotation(float rotation)
+    {
+        ByteBuffer buffer = new ByteBuffer(4);
+        buffer.WriteInt32((int)ClientPackets.CPlayerRotation);
+        buffer.WriteSingle(rotation);
         NetworkConfig.socket.SendData(buffer.Data, buffer.Head);
 
         buffer.Dispose();

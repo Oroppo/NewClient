@@ -10,9 +10,10 @@ public class NetworkManager : MonoBehaviour
 
     public static NetworkManager instance;
 
-    //This needs to be a queue later
-    private bool _ThingsToSpawn = false;
-    private int _IDToSet = 0;
+    private Queue<int> _IDToSet = new Queue<int>();
+
+    public Queue<MovementOrder> _ObjectToMove = new Queue<MovementOrder>();
+
     private bool _isMyPlayer = false;
 
 
@@ -23,18 +24,26 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        //Must instantiate Objects within Main thread!
-        if (_ThingsToSpawn)
+        //Must Manipulate Objects within Main thread!
+        while(_IDToSet.Count > 0)
         {
-            GameObject thing = Instantiate(prefab);
-            thing.name = "Player: " + _IDToSet;
-            GameManager.instance.playerList.Add(_IDToSet, thing);
+            int id = _IDToSet.Dequeue();
+
+            GameObject player = Instantiate(prefab);
+            player.name = "Player: " + _IDToSet;
+            GameManager.instance.playerList.Add(id, player);
 
             if (_isMyPlayer)
-                thing.AddComponent<InputManager>();
-
-            _ThingsToSpawn = false;
+                player.AddComponent<InputManager>();
         }
+
+        while(_ObjectToMove.Count > 0)
+        {
+            MovementOrder order = _ObjectToMove.Dequeue();
+
+            order.obj.transform.position = order.movement;
+        }
+
     }
 
     // Start is called before the first frame update
@@ -52,10 +61,7 @@ public class NetworkManager : MonoBehaviour
 
     public void InstantiateNetworkPlayer(int connectionID, bool isMyPlayer)
     {   
-        _ThingsToSpawn = true;
-        _IDToSet = connectionID;
+        _IDToSet.Enqueue(connectionID);
         _isMyPlayer = isMyPlayer;
-       
-
     }
 }
