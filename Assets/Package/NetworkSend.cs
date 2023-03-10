@@ -6,6 +6,8 @@ enum ClientPackets
     CPing = 1,
     CKeyInput,
     CPlayerRotation,
+    CMessage,
+    CGrenadeThrow,
 }
 internal static class NetworkSend
 {
@@ -14,6 +16,16 @@ internal static class NetworkSend
         ByteBuffer buffer = new ByteBuffer(4);
         buffer.WriteInt32((int)ClientPackets.CPing);
         buffer.WriteString("Client Connected");
+        NetworkConfig.socket.SendData(buffer.Data, buffer.Head);
+
+        buffer.Dispose();
+    }
+    public static void SendMessage(string message)
+    {
+        ByteBuffer buffer = new ByteBuffer(4);
+        buffer.WriteInt32((int)ClientPackets.CMessage);
+        buffer.WriteString(message);
+
         NetworkConfig.socket.SendData(buffer.Data, buffer.Head);
 
         buffer.Dispose();

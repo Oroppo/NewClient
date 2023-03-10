@@ -64,9 +64,10 @@ public class InputManager : MonoBehaviour
     private void CheckRotation()
     {
         gameObject.transform.localEulerAngles =
-            new Vector3(gameObject.transform.localEulerAngles.x,
-            GameManager.instance.WrapEulerAngles(rotation),
-            gameObject.transform.eulerAngles.z);
+        new Vector3(gameObject.transform.localEulerAngles.x,
+        GameManager.instance.WrapEulerAngles(rotation),
+        gameObject.transform.eulerAngles.z);
+
         NetworkSend.SendPlayerRotation(rotation);
     }
 

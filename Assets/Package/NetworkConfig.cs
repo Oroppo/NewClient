@@ -14,7 +14,7 @@ internal static class NetworkConfig
 
     internal static void ConnectToServer()
     {
-        socket.Connect("localhost", 5555);
+        socket.Connect("localhost", 8888);
     }
 
     internal static void DisconnectFromServer()

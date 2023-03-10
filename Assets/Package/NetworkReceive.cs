@@ -9,6 +9,7 @@ enum ServerPackets
     SInstantiatePlayer,
     SPlayerMove,
     SPlayerRotation,
+    SMessage,
 }
 public struct MovementOrder
 {
@@ -20,6 +21,7 @@ public struct MovementOrder
     public Vector3 movement;
     public GameObject obj;
 }
+
 internal static class NetworkReceive
 {
     internal static void PacketRouter()
@@ -28,7 +30,7 @@ internal static class NetworkReceive
         NetworkConfig.socket.PacketId[(int)ServerPackets.SInstantiatePlayer] = new KaymakNetwork.Network.Client.DataArgs(Packet_InstantiateNetworkPlayer);
         NetworkConfig.socket.PacketId[(int)ServerPackets.SPlayerMove] = new KaymakNetwork.Network.Client.DataArgs(Packet_PlayerMove);
         NetworkConfig.socket.PacketId[(int)ServerPackets.SPlayerRotation] = new KaymakNetwork.Network.Client.DataArgs(Packet_PlayerRotation);
-
+        NetworkConfig.socket.PacketId[(int)ServerPackets.SMessage] = new KaymakNetwork.Network.Client.DataArgs(Packet_Message);
     }
     private static void Packet_WelcomeMsg(ref byte[] data)
     {
@@ -69,7 +71,7 @@ internal static class NetworkReceive
         //need to make a custom data structure to pass this into Unity Main Thread
         NetworkManager.instance._ObjectToMove.Enqueue(new MovementOrder(movement,player));
 
-        Debug.Log(new Vector3(x, y, z));
+        //Debug.Log(new Vector3(x, y, z));
     }
 
     private static void Packet_PlayerRotation(ref byte[] data)
@@ -86,6 +88,20 @@ internal static class NetworkReceive
 
         buffer.Dispose();
 
+    }
+
+    private static void Packet_Message(ref byte[] data)
+    {
+        ByteBuffer buffer = new ByteBuffer(data);
+        int connectionID = buffer.ReadInt32();
+
+        string message = buffer.ReadString();
+        //message += "/n";
+        Debug.Log(message);
+
+        buffer.Dispose();
+
+        GameManager.messages.Enqueue(message);
     }
 
 }

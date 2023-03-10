@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -11,10 +12,25 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, GameObject> playerList = new Dictionary<int, GameObject>();
 
     public static GameManager instance;
+     
+    public static TextMeshProUGUI textbox;
+
+    public static Queue<string> messages = new Queue<string>();
 
     private void Awake()
     {
         instance = this;
+        textbox = GameObject.Find("Messages").GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Update()
+    {
+        if (messages.Count > 0)
+        {
+                textbox.text += messages.Dequeue();
+
+        }
+
     }
 
     internal float WrapEulerAngles(float rotation)
