@@ -7,7 +7,6 @@ enum ClientPackets
     CKeyInput,
     CPlayerRotation,
     CMessage,
-    CGrenadeThrow,
 }
 internal static class NetworkSend
 {

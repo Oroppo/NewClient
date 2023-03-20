@@ -42,6 +42,7 @@ internal static class NetworkReceive
         NetworkManager.instance.myConnectionID = connectionID;
 
         NetworkSend.SendPing();
+        
     }
     private static void Packet_InstantiateNetworkPlayer(ref byte[] data)
     {

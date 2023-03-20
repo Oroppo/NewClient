@@ -29,7 +29,7 @@ public class NetworkManager : MonoBehaviour
         {
             int id = _IDToSet.Dequeue();
 
-            GameObject player = Instantiate(prefab);
+            GameObject player = Instantiate(prefab, transform);
             player.name = "Player: " + _IDToSet;
             GameManager.instance.playerList.Add(id, player);
 
@@ -41,18 +41,19 @@ public class NetworkManager : MonoBehaviour
         {
             MovementOrder order = _ObjectToMove.Dequeue();
 
+            Debug.Log(order.obj.transform.position);
+
             order.obj.transform.position = order.movement;
         }
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
-        NetworkConfig.InitNetwork();
-        NetworkConfig.ConnectToServer();
+        NetworkConfig.InitNetwork();      
     }
+
 
     private void OnApplicationQuit()
     {

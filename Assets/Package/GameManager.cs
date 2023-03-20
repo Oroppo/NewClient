@@ -28,9 +28,7 @@ public class GameManager : MonoBehaviour
         if (messages.Count > 0)
         {
                 textbox.text += messages.Dequeue();
-
         }
-
     }
 
     internal float WrapEulerAngles(float rotation)

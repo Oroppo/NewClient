@@ -9,23 +9,10 @@ public class InputManager : MonoBehaviour
     public enum Keys
     {
         None,
-        MouseX,
-        MouseY,
-        Space,
-        LeftShift,
-        GetAxisRaw,
-        Escape,
         W,
         A,
         S,
         D,
-        Z,
-        F,
-        G,
-        R,
-        C,
-        Q,
-        E,
         Mouse1,
         Mouse2,
         MouseScroll,
@@ -73,41 +60,6 @@ public class InputManager : MonoBehaviour
 
     private void CheckInput()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            pressedKey = Keys.Z;
-        }
-        else if (Input.GetKeyUp(KeyCode.Z))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            pressedKey = Keys.Q;
-        }
-        else if (Input.GetKeyUp(KeyCode.Q))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            pressedKey = Keys.E;
-        }
-        else if (Input.GetKeyUp(KeyCode.E))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            pressedKey = Keys.C;
-        }
-        else if (Input.GetKeyUp(KeyCode.C))
-        {
-            pressedKey = Keys.None;
-        }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -145,86 +97,6 @@ public class InputManager : MonoBehaviour
             pressedKey = Keys.None;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            pressedKey = Keys.Space;
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            pressedKey = Keys.LeftShift;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pressedKey = Keys.Escape;
-        }
-        else if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            pressedKey = Keys.LeftShift;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            pressedKey = Keys.R;
-        }
-        else if (Input.GetKeyUp(KeyCode.R))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            pressedKey = Keys.F;
-        }
-        else if (Input.GetKeyUp(KeyCode.F))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            pressedKey = Keys.G;
-        }
-        else if (Input.GetKeyUp(KeyCode.G))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            pressedKey = Keys.Mouse1;
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            pressedKey = Keys.None;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse2))
-        {
-            pressedKey = Keys.Mouse2;
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse2))
-        {
-            pressedKey = Keys.None;
-        }
 
         NetworkSend.SendKeyInput(pressedKey);
     }

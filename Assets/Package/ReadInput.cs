@@ -11,9 +11,14 @@ public class ReadInput : MonoBehaviour
     {
         field = GetComponent<InputField>();
     }
+
     public void ReadStringInput(string message)
     {
         NetworkSend.SendMessage(message);
-        field.text = "";
+    }
+
+    public void ReadIP(string ip)
+    {
+        NetworkConfig.ConnectToServer(ip);
     }
 }
